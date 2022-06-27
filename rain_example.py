@@ -34,7 +34,6 @@ def main():
     Saves the result to file of raining check image 0.
     '''
 
-
     # Rain settings
     # nominal values for lanczos3
     n_cpu = 32 # number of processes
@@ -95,4 +94,5 @@ def main():
     hdul = fits.HDUList([hdu])
     hdul.writeto(output_path, overwrite=True)
 
-    print()
+if __name__ == '__main__':
+    main()
