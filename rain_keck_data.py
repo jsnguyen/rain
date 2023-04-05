@@ -28,6 +28,12 @@ def distortion(index_x, index_y, x_dist, y_dist):
     y_actual = index_y+0.5
     return x_actual+x_dist[index_y,index_x], y_actual+y_dist[index_y,index_x]
 
+def crop_center(img, sx, sy):
+    y,x = img.shape
+    startx = x//2-(sx//2)
+    starty = y//2-(sy//2)    
+    return img[starty:starty+sy,startx:startx+sx]
+
 def main():
 
     # standard way to run
@@ -35,14 +41,14 @@ def main():
     n_cpu = 32
 
     #data_dir = '/Users/jsn/landing/data/2015Oct26/reduced/'
-    data_dir = '/home/jsn/landing/data/2015Oct26/reduced/'
+    data_dir = '/home/jsn/landing/data/2009Aug31/reduced/'
 
     kernel='lanczos3_lut'
     pixel_frac = 1 # pixel fraction, fraction of pixel side length
     n_div = 1 # number of divisions per pixel
     n_pad = 0
 
-    search_dir = os.path.join(data_dir,'r_*.fits')
+    search_dir = os.path.join(data_dir,'nosky_r_*.fits')
     for input_path in sorted(glob.glob(search_dir)):
         basename = os.path.basename(input_path)
 
@@ -60,10 +66,13 @@ def main():
         grid = np.meshgrid(xs, ys)
         index_coords = np.stack(grid).T.reshape(-1,2)
 
-        #bad_pixel_map = fits.getdata('./masks/nirc2mask.fits')
-        bad_pixel_map = None
-        x_dist = fits.getdata('distortion/nirc2_distort_X_post20150413_v1.fits')
-        y_dist = fits.getdata('distortion/nirc2_distort_Y_post20150413_v1.fits')
+        bad_pixel_map = fits.getdata('./masks/nirc2mask.fits')
+        x_dist = fits.getdata('distortion/nirc2_distort_X_pre20150413_v1.fits')
+        y_dist = fits.getdata('distortion/nirc2_distort_Y_pre20150413_v1.fits')
+
+        x_dist = crop_center(x_dist, ix, iy)
+        y_dist = crop_center(y_dist, ix, iy)
+
         new_pc_coords = []
         for index_x,index_y in tqdm(index_coords, desc='Generate New Coordinates'):
             new_pc_coords.append(distortion(index_x, index_y, x_dist, y_dist))
