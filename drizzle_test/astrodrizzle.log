@@ -1,0 +1,50 @@
+[INFO    ] Setting up logfile :  astrodrizzle.log
+[INFO    ] AstroDrizzle Version 2.2.6 (2018-11-02 15:37:13 -0400) started at: 15:02:21.507 (30/03/2022)
+[INFO    ] 
+[INFO    ] Version Information
+[INFO    ] --------------------
+[INFO    ] Python Version [GCC 7.3.0]
+[INFO    ] 2.7.18 |Anaconda, Inc.| (default, Jun  4 2021, 14:47:46) 
+[INFO    ] numpy Version -> 1.16.6 
+[INFO    ] astropy Version -> 2.0.9 
+[INFO    ] stwcs Version -> 1.3.2 
+[INFO    ] ==== Processing Step  Initialization  started at  15:02:21.508 (30/03/2022)
+[INFO    ] Preserving original of:  r_n0060.fits as  OrIg_files/r_n0060.fits
+[INFO    ] Executing serially
+[ERROR   ] ##############################################################################
+[ERROR   ] #                                                                            #
+[ERROR   ] # ERROR:                                                                     #
+[ERROR   ] # AstroDrizzle Version 2.2.6 encountered a problem!  Processing terminated   #
+[ERROR   ] # at 15:02:21.569 (30/03/2022).                                              #
+[ERROR   ] #                                                                            #
+[ERROR   ] ##############################################################################
+[INFO    ] 
+[INFO    ]    --------------------          --------------------
+[INFO    ]                    Step          Elapsed time
+[INFO    ]    --------------------          --------------------
+[INFO    ] 
+[INFO    ]          Initialization          0.0000 sec.
+[INFO    ]    ====================          ====================
+[INFO    ]                   Total          0.0000 sec.
+[INFO    ] Trailer file written to:  astrodrizzle.log
+[ERROR   ] An unhandled exception ocurred:
+Traceback (most recent call last):
+  File "/home/jsn/conda/envs/iraf27/lib/python2.7/site-packages/drizzlepac/util.py", line 218, in wrapper
+    func(*args, **kwargs)
+  File "/home/jsn/conda/envs/iraf27/lib/python2.7/site-packages/drizzlepac/astrodrizzle.py", line 185, in run
+    imgObjList, outwcs = processInput.setCommonInput(configobj)
+  File "/home/jsn/conda/envs/iraf27/lib/python2.7/site-packages/drizzlepac/processInput.py", line 120, in setCommonInput
+    **configObj['STATE OF INPUT FILES'])
+  File "/home/jsn/conda/envs/iraf27/lib/python2.7/site-packages/drizzlepac/processInput.py", line 532, in process_input
+    updatewcs=updatewcs, **workinplace)
+  File "/home/jsn/conda/envs/iraf27/lib/python2.7/site-packages/drizzlepac/processInput.py", line 698, in buildFileListOrig
+    newfilelist, ivmlist = check_files.checkFiles(updated_input, ivmlist)
+  File "/home/jsn/conda/envs/iraf27/lib/python2.7/site-packages/stsci/tools/check_files.py", line 39, in checkFiles
+    newfilelist, ivmlist = checkStisFiles(newfilelist, ivmlist)
+  File "/home/jsn/conda/envs/iraf27/lib/python2.7/site-packages/stsci/tools/check_files.py", line 106, in checkStisFiles
+    if t[0][0].header['INSTRUME'] != 'STIS':
+  File "/home/jsn/conda/envs/iraf27/lib/python2.7/site-packages/astropy/io/fits/header.py", line 150, in __getitem__
+    card = self._cards[self._cardindex(key)]
+  File "/home/jsn/conda/envs/iraf27/lib/python2.7/site-packages/astropy/io/fits/header.py", line 1674, in _cardindex
+    raise KeyError("Keyword {!r} not found.".format(keyword))
+KeyError: "Keyword 'INSTRUME' not found."
